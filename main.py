@@ -16,15 +16,28 @@ from src.models import ChatRequest, ChatResponse
 # FastAPI Application
 # ============================================================================
 
+# Initialize chat service
+chat_service = None
+
+def lifespan(app: FastAPI):
+    """Lifespan context manager for startup and shutdown events"""
+    global chat_service
+    # Startup
+    chat_service = ChatService()
+
+    yield
+
+    # Shutdown
+    chat_service.close()
+    
+
+
 app = FastAPI(
     title="Inventory Chatbot API",
     description="AI-powered inventory management chatbot with SQL query output",
-    version="1.0.0"
+    version="1.0.0",
+    lifespan=lifespan
 )
-
-# Initialize chat service
-chat_service = ChatService()
-
 
 @app.post("/api/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest):
