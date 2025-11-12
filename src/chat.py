@@ -101,3 +101,7 @@ Focus on being helpful and accurate. Keep responses brief and to the point."""
                 model=self.openai_service.model,
                 status="error"
             )
+
+    def close(self):
+        """Cleanup resources if needed"""
+        return "ChatService closed."
