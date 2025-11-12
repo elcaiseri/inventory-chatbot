@@ -23,7 +23,7 @@ A minimal AI-powered inventory management chatbot that answers business question
 
 1. Clone the repository:
 ```bash
-cd /Users/kassem/Desktop/asap
+cd inventory-chatbot
 ```
 
 2. Install dependencies:
@@ -39,7 +39,7 @@ cp .env.example .env
 
 4. Run the application:
 ```bash
-python main.py
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
 5. Open your browser to `http://localhost:8000`
@@ -53,7 +53,7 @@ Environment variables in `.env`:
 OPENAI_API_KEY=sk-...
 
 # Optional
-MODEL_NAME=gpt-3.5-turbo  # or gpt-4, gpt-4-turbo, etc.
+MODEL_NAME=gpt-4o-mini  # or gpt-4, gpt-4-turbo, etc.
 HOST=0.0.0.0
 PORT=8000
 ```
@@ -171,7 +171,7 @@ See `main.py` for complete schema details.
          ▼
 ┌─────────────────┐
 │  OpenAI API     │
-│  (urllib)       │
+│  (openaisdk)    │
 └─────────────────┘
 ```
 
@@ -203,7 +203,7 @@ python test_api.py
 
 ### Design Decisions
 
-1. **No External Libraries (except required)**: Uses Python's `urllib` for HTTP instead of `requests` or OpenAI SDK
+1. **No External Libraries (except required)**: Uses Python's OpenAI SDK
 2. **In-Memory Sessions**: Simple dictionary-based session storage (suitable for demo, would use Redis in production)
 3. **Pattern Matching**: Regex-based intent matching for SQL query selection
 4. **Embedded UI**: Single HTML page served by FastAPI (no separate frontend build)
@@ -236,21 +236,6 @@ docker run -p 8000:8000 \
   inventory-chatbot
 ```
 
-### Using systemd (Linux)
-
-```bash
-# Copy the service file
-sudo cp inventory-chatbot.service /etc/systemd/system/
-
-# Enable and start
-sudo systemctl enable inventory-chatbot
-sudo systemctl start inventory-chatbot
-```
-
 ## 📄 License
 
 MIT
-
-## 👤 Author
-
-Senior ML Engineer Assignment - November 2025
