@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Chatbot</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏭 Inventory Management Chatbot</h1>
+            <p>Ask questions about your inventory and see the SQL queries</p>
+        </div>
+        
+        <div class="chat-container" id="chatContainer">
+            <div class="message message-assistant">
+                <div class="message-bubble">
+                    👋 Welcome! I can help you query your inventory database. 
+                    Ask me about assets, vendors, customers, purchase orders, or sales orders.
+                </div>
+            </div>
+        </div>
+        
+        <div class="examples">
+            <strong>Try:</strong>
+            <span class="example-link" onclick="sendExample('How many assets do I have?')">How many assets?</span> •
+            <span class="example-link" onclick="sendExample('Show me assets by site')">Assets by site</span> •
+            <span class="example-link" onclick="sendExample('Which vendor supplied the most assets?')">Top vendor</span> •
+            <span class="example-link" onclick="sendExample('How many open purchase orders?')">Open POs</span>
+        </div>
+        
+        <div class="input-container">
+            <div class="input-wrapper">
+                <input 
+                    type="text" 
+                    id="messageInput" 
+                    placeholder="Ask about your inventory..."
+                    onkeypress="handleKeyPress(event)"
+                />
+                <button id="sendButton" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="static/scripts.js"></script>
+</body>
+</html>

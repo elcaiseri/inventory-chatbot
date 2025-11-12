@@ -5,7 +5,7 @@ Senior Machine Learning Engineer Assignment
 import os
 from datetime import datetime
 
-from fastapi import FastAPI
+from fastapi import FastAPI, staticfiles
 from fastapi.responses import HTMLResponse
 import uvicorn
 
@@ -39,6 +39,8 @@ app = FastAPI(
     lifespan=lifespan
 )
 
+app.mount("/static", staticfiles.StaticFiles(directory="src/static"), name="static")
+
 @app.post("/api/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest):
     """
@@ -57,7 +59,7 @@ async def chat(request: ChatRequest):
 @app.get("/", response_class=HTMLResponse)
 async def root():
     """Serve the chat UI"""
-    with open("src/ui/index.html") as f:
+    with open("src/static/index.html") as f:
         html_content = f.read()
 
     return HTMLResponse(content=html_content)
