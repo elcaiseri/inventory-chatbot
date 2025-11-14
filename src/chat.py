@@ -55,7 +55,17 @@ Focus on being helpful and accurate. Keep responses brief and to the point."""
             
             # Add context about the matched query if available
             if intent_match:
-                enhanced_message = f"{message}\n\n[System: This maps to intent '{intent_match['intent']}']"
+                enhanced_message = (
+                    f"{message}\n\n"
+                    f"[System: intent='{intent_match['intent']}'. "
+                    f"SQL query to be executed: {intent_match['sql']}. "
+                    f"Answer template hint: {intent_match['answer_template']}. "
+                    "Decide whether the template is useful based on the SQL result & User Message. Modify if needed. "
+                    "Respond with a concise, high‑level answer as if the query executed. "
+                    "Do not invent specific numbers unless the user provided them. "
+                    "If results are unknown, describe what the result set would contain (entities, counts). "
+                    "Do not show SQL. Keep under 60 words.]"
+                )
                 messages[-1]["content"] = enhanced_message
             
             # Call OpenAI
