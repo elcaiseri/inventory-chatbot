@@ -21,14 +21,17 @@ class OpenAIService:
     
     def create_chat_completion(
             self,
-            messages: List[Dict[str, str]]
+            messages: List[Dict[str, str]],
+            temperature: float = 0.2,
+            timeout: int = 60,
         ) -> Dict[str, Any]:
         """Call OpenAI chat completion API using official SDK"""
         try:
             response = self.client.chat.completions.create(
                 model=self.model,
                 messages=messages,
-                timeout=60,
+                temperature=temperature,
+                timeout=timeout,
             )
             
             # Convert response to dict format for consistency
