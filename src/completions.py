@@ -28,7 +28,7 @@ class OpenAIService:
             response = self.client.chat.completions.create(
                 model=self.model,
                 messages=messages,
-                timeout=30,
+                timeout=60,
             )
             
             # Convert response to dict format for consistency
