@@ -1,9 +1,11 @@
-from typing import Dict, List, Optional, Any
-from pydantic import BaseModel, Field
+from typing import Any, Dict, Optional
+
+from pydantic import BaseModel
 
 # ============================================================================
 # Pydantic Models
 # ============================================================================
+
 
 class ChatRequest(BaseModel):
     session_id: str

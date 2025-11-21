@@ -1,10 +1,10 @@
 from __future__ import annotations
-from typing import Optional
-from datetime import datetime, date
+
+from datetime import date, datetime
 from enum import Enum
-from decimal import Decimal
-from pydantic import BaseModel, Field, constr, condecimal, conint
-from pydantic import ConfigDict
+from typing import Optional
+
+from pydantic import BaseModel, ConfigDict, Field, condecimal, conint, constr
 
 # Constrained types matching column sizes
 Code50 = constr(max_length=50)
@@ -56,9 +56,9 @@ class TxnType(str, Enum):
 # Base config model
 class ORMModel(BaseModel):
     model_config = ConfigDict(
-        from_attributes=True,          # replaces orm_mode
-        validate_by_name=True,         # replaces allow_population_by_field_name
-        populate_by_name=True          # allow passing field names as well as aliases
+        from_attributes=True,  # replaces orm_mode
+        validate_by_name=True,  # replaces allow_population_by_field_name
+        populate_by_name=True,  # allow passing field names as well as aliases
     )
 
 
@@ -67,7 +67,7 @@ class EnumValueModel(ORMModel):
         from_attributes=True,
         validate_by_name=True,
         populate_by_name=True,
-        use_enum_values=True
+        use_enum_values=True,
     )
 
 
@@ -77,7 +77,9 @@ class Customer(ORMModel):
     customer_name: Name200 = Field(..., alias="CustomerName")
     email: Optional[constr(max_length=200)] = Field(None, alias="Email")
     phone: Optional[Phone50] = Field(None, alias="Phone")
-    billing_address1: Optional[constr(max_length=200)] = Field(None, alias="BillingAddress1")
+    billing_address1: Optional[constr(max_length=200)] = Field(
+        None, alias="BillingAddress1"
+    )
     billing_city: Optional[City100] = Field(None, alias="BillingCity")
     billing_country: Optional[Country100] = Field(None, alias="BillingCountry")
     created_at: Optional[datetime] = Field(None, alias="CreatedAt")
@@ -128,7 +130,9 @@ class Item(ORMModel):
     item_code: Code100 = Field(..., alias="ItemCode")
     item_name: Name200 = Field(..., alias="ItemName")
     category: Optional[constr(max_length=100)] = Field(None, alias="Category")
-    unit_of_measure: Optional[constr(max_length=50)] = Field(None, alias="UnitOfMeasure")
+    unit_of_measure: Optional[constr(max_length=50)] = Field(
+        None, alias="UnitOfMeasure"
+    )
     created_at: Optional[datetime] = Field(None, alias="CreatedAt")
     updated_at: Optional[datetime] = Field(None, alias="UpdatedAt")
     is_active: bool = Field(True, alias="IsActive")
