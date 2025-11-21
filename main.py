@@ -4,6 +4,7 @@ Senior Machine Learning Engineer Assignment
 """
 
 import os
+from contextlib import asynccontextmanager
 from datetime import datetime
 
 import uvicorn
@@ -18,10 +19,11 @@ from src.models import ChatRequest, ChatResponse
 # ============================================================================
 
 # Initialize chat service
-chat_service = None
+chat_service: ChatService
 
 
-def lifespan(app: FastAPI):
+@asynccontextmanager
+async def lifespan(app: FastAPI):
     """Lifespan context manager for startup and shutdown events"""
     global chat_service
     # Startup
