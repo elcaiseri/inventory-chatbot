@@ -31,7 +31,7 @@ class OpenAIService:
         try:
             response = self.client.chat.completions.create(
                 model=self.model,
-                messages=messages,
+                messages=messages,  # type: ignore
                 temperature=temperature,
                 top_p=1,
                 timeout=timeout,
@@ -48,9 +48,9 @@ class OpenAIService:
                     }
                 ],
                 "usage": {
-                    "prompt_tokens": response.usage.prompt_tokens,
-                    "completion_tokens": response.usage.completion_tokens,
-                    "total_tokens": response.usage.total_tokens,
+                    "prompt_tokens": response.usage.prompt_tokens,  # type: ignore
+                    "completion_tokens": response.usage.completion_tokens,  # type: ignore
+                    "total_tokens": response.usage.total_tokens,  # type: ignore
                 },
             }
         except Exception as e:
